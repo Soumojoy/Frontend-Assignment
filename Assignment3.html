@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <style>
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        .nav-items {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-items li {
+            margin: 0 15px;
+        }
+
+        .nav-items a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Large screens (min-width: 1024px) */
+        @media (min-width: 1024px) {
+            .nav-items {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+        }
+
+        /* Medium screens (768px to 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .nav-items {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-items li {
+                margin: 10px 0;
+            }
+        }
+
+        /* Small screens (less than 768px) */
+        @media (max-width: 767px) {
+            .nav-items {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-items li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .nav-items.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="nav-items" id="navItems">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            var navItems = document.getElementById("navItems");
+            navItems.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

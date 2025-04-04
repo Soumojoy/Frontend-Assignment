@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Card Layout</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px; /* Limit width on large screens */
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Medium screens (600px to 1024px) */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .card-container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .card {
+                margin-bottom: 0; /* Remove bottom margin for grid layout */
+            }
+        }
+
+        /* Large screens (more than 1024px) */
+        @media (min-width: 1025px) {
+            .card-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .card {
+                margin-bottom: 0; /* Remove bottom margin for grid layout */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 1</h2>
+            <p>This is a description for card 1. It provides details about the content.</p>
+            <button>Read More</button>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 2</h2>
+            <p>Description for card 2. This card has different information.</p>
+            <button>Read More</button>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 3</h2>
+            <p>Card 3 description. This is another card with unique content.</p>
+            <button>Read More</button>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 4</h2>
+            <p>Description for card 4. This is a card with even more information.</p>
+            <button>Read More</button>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 5</h2>
+            <p>Card 5 description. This card provides different content.</p>
+            <button>Read More</button>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/150" alt="Card Image">
+            <h2>Card Title 6</h2>
+            <p>Card 6 description. This is the last card in the layout.</p>
+            <button>Read More</button>
+        </div>
+    </div>
+</body>
+</html>

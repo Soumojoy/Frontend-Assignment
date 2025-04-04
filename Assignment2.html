@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Readability</title>
+    <style>
+        body {
+            font-size: 14px; /* Mobile first font size */
+            line-height: 1.5; /* Mobile first line height */
+        }
+
+        /* Larger screens (600px and above) */
+        @media (min-width: 600px) {
+            body {
+                font-size: 16px; /* Larger font size */
+            }
+        }
+
+        h1, h2, p, div {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Responsive Text</h1>
+    <h2>Subheading</h2>
+    <p>This is a paragraph of text. It should be readable on all devices.</p>
+    <div>
+        This is a div with some text. It should also be readable.
+    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe Sharing App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      padding: 1em;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    main {
+      padding: 1em;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      padding: 1em;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    form input, form select, form textarea, form button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+
+    .recipe-card {
+      background: #fff;
+      margin: 1em auto;
+      padding: 1em;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background: #eee;
+      margin-top: 2em;
+    }
+
+    @media (max-width: 600px) {
+      form, .recipe-card {
+        margin: 0.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Recipe Book</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#add-recipe">Add Recipe</a>
+      <a href="#view-recipes">View Recipes</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="add-recipe">
+      <h2>Add a New Recipe</h2>
+      <form id="recipe-form">
+        <input type="text" id="title" placeholder="Recipe Name" required />
+        <textarea id="ingredients" placeholder="Ingredients (one per line)" required></textarea>
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dinner</option>
+          <option>Dessert</option>
+          <option>Drinks</option>
+        </select>
+        <textarea id="steps" placeholder="Preparation Steps (supports <b>, <i>, <u>)" required></textarea>
+        <button type="submit">Add Recipe</button>
+      </form>
+    </section>
+
+    <section id="view-recipes">
+      <h2>Recipes</h2>
+      <label for="filter-category">Filter by Category:</label>
+      <select id="filter-category">
+        <option value="All">All</option>
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+        <option>Dessert</option>
+        <option>Drinks</option>
+      </select>
+
+      <div id="recipe-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Recipe Sharing App
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById('recipe-form');
+      const recipeList = document.getElementById('recipe-list');
+      const filterCategory = document.getElementById('filter-category');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const title = document.getElementById('title').value.trim();
+        const ingredients = document.getElementById('ingredients').value.trim();
+        const category = document.getElementById('category').value;
+        const steps = document.getElementById('steps').value.trim();
+
+        if (!title || !ingredients || !category || !steps) {
+          alert("Please fill all fields.");
+          return;
+        }
+
+        const recipe = {
+          title,
+          ingredients: ingredients.split('\n'),
+          category,
+          steps
+        };
+
+        const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        recipes.push(recipe);
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+
+        form.reset();
+        renderRecipes();
+      });
+
+      filterCategory.addEventListener('change', renderRecipes);
+
+      function renderRecipes() {
+        const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        const selectedCategory = filterCategory.value;
+
+        recipeList.innerHTML = '';
+
+        const filteredRecipes = selectedCategory === "All"
+          ? recipes
+          : recipes.filter(r => r.category === selectedCategory);
+
+        filteredRecipes.forEach(recipe => {
+          const card = document.createElement('div');
+          card.className = 'recipe-card';
+
+          let ingredientsTable = '<table>';
+          recipe.ingredients.forEach(ing => {
+            ingredientsTable += `<tr><td>${ing}</td></tr>`;
+          });
+          ingredientsTable += '</table>';
+
+          card.innerHTML = `
+            <h3>${recipe.title}</h3>
+            <p><strong>Category:</strong> ${recipe.category}</p>
+            <p><strong>Ingredients:</strong></p>
+            ${ingredientsTable}
+            <p><strong>Preparation Steps:</strong></p>
+            <p>${recipe.steps}</p>
+          `;
+
+          recipeList.appendChild(card);
+        });
+      }
+
+      renderRecipes(); // Initial load
+    });
+  </script>
+
+</body>
+</html>
